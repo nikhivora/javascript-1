@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+
+    </div>
+    <input type="hidden" id="Editid">
+    <input type="text" placeholder="name" id="name">
+    <input type="text" placeholder="password" id="password">
+    <input type="hidden" id="edit">
+    <br><br>
+    <button type="button" id="add" onclick="saveRecord()">submit</button>
+    <button type="button" style="display: none;" id="Edit" onclick="userpass()">Edit</button>
+
+    <br><br>
+    <table border="1">
+        <thead>
+            <th>id </th>
+            <th>username</th>
+            <th>password</th>
+            <th>delete</th>
+
+        </thead>
+        <tbody id="tbody">
+
+
+        </tbody>
+    </table>
+    <script>
+        let record = []
+        // let tbody=document.getElementById("tbody
+
+        const saveRecord = () => {
+            let username = document.getElementById("name").value
+            let userpass = document.getElementById("password").value
+
+            let obj = {
+                id: Math.floor(Math.random() * 1000),
+                name: username,
+                pass: userpass
+            }
+            record.push(obj)
+            document.getElementById("name").value = ""
+            document.getElementById("password").value = ""
+            loaddeta()
+        }
+
+        function loaddeta() {
+            let = tbl = ""
+            record.map((val, index) => {
+                document.getElementById("add").style.display = "block"
+                document.getElementById("Edit").style.display = "none"
+                tbl += `
+                     <tr>
+                    <td>${val.id}</td>
+                    <td>${val.name}</td>
+                    <td>${val.pass}</td>
+                    <td>            <button onclick="deleteuser( ${val.id})">delete</button></td>
+                    <td>            <button onclick="Editusers( ${val.id})">Edit</button></td>
+                    
+                </tr> `
+            })
+
+            document.getElementById('tbody').innerHTML = tbl
+
+        }
+        loaddeta()
+        let deleteuser = (id) => {
+            let deletedata = record.filter(item => item.id !== id)
+            record = deletedata
+            loaddeta()
+        }
+        let Editusers = (id) => {
+            document.getElementById("add").style.display = "none"
+            document.getElementById("Edit").style.display = "block"
+            let Edit = record.find(item => item.id == id)
+            document.getElementById("name").value = Edit.name
+            document.getElementById("Editid").value = Edit.id
+            document.getElementById("password").value = Edit.pass
+
+        }
+        let userpass = () => {
+            let update = document.getElementById("Editid").value
+            let userfname = document.getElementById("name").value
+            let pass = document.getElementById("password").value
+
+            let up = record.map((val) => {
+                if (val.id == update) {
+                    val.name = userfname
+                    val.pass = pass
+                }
+                return val;
+            })
+            record = up
+            document.getElementById("name").value = ""
+            document.getElementById("password").value = ""
+            loaddeta()
+        }
+
+
+    </script>
+</body>
+
+</html>

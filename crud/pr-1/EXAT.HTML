@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Records</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .filters {
+            margin-bottom: 20px;
+        }
+
+        .filter-label {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <label for="city">City :-</label>
+    <input type="text" id="city" onchange="city()">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>City</th>
+                <th>Salary</th>
+                <th>Designation</th>
+                <th>Department</th>
+            </tr>
+        </thead>
+        <tbody id="tbody">
+            <!-- Records will be populated here -->
+        </tbody>
+    </table>
+
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        const records = [
+            { id: 1, name: "ashish", email: "ashu@gmail.com", phone: "1121212", city: "surat", salary: 20000, degi: "senior", dep: "programming" },
+            { id: 2, name: "hari", email: "hari@gmail.com", phone: "5454545", city: "surat", salary: 22000, degi: "junior", dep: "ui/ux" },
+            { id: 3, name: "raj", email: "raj@gmail.com", phone: "454545", city: "vadodara", salary: 25000, degi: "junior", dep: "bde" },
+            { id: 4, name: "deep", email: "deep@gmail.com", phone: "565656", city: "vapi", salary: 30000, degi: "tl", dep: "webdesign" },
+            { id: 5, name: "jay", email: "jay@gmail.com", phone: "5565656", city: "rajkot", salary: 20000, degi: "senior", dep: "programming" },
+            { id: 6, name: "ajay", email: "ajay@gmail.com", phone: "5565656", city: "vapi", salary: 25000, degi: "manager", dep: "ui/ux" }
+        ];
+
+        const viewreco = (filteredRecords = records) => {
+            let tbl = '';
+            filteredRecords.map((val) => {
+                tbl += `
+                <tr>
+                  <td>${val.id}</td>
+                  <td>${val.name}</td>
+                  <td>${val.email}</td>
+                  <td>${val.phone}</td>
+                  <td>${val.city}</td>
+                  <td>${val.salary}</td>
+                  <td>${val.degi}</td>
+                  <td>${val.dep}</td>
+                </tr>
+                `;
+            });
+            document.getElementById('tbody').innerHTML = tbl;
+        };
+
+        viewreco();
+
+        const city = () => {
+            const city = document.getElementById('city').value;
+            const filteredRecords = records.filter(item => item.city === city);
+            viewreco(filteredRecords);
+        };
+    </script>
+</body>
+
+</html>

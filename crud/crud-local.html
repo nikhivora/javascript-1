@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <table align="center" border="1">
+        <tbody>
+            <tr>
+                <td>Name :-</td>
+                <td><input id="name" type="text"></td>
+            </tr>
+            <tr>
+                <td>pass :-</td>
+                <td><input id="pass" type="text"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td align="center"><button onclick="savedata()">submit</button> </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+    <br>
+
+    <table align="center" border="1" cellspacing="2" cellpadding="10">
+        <thead>
+            <th>id</th>
+            <th>Name</th>
+            <th>Number</th>
+            <th>action</th>
+
+        </thead>
+        <tbody id="tbody">
+
+        </tbody>
+    </table>
+
+    <script>
+
+        let student = JSON.parse(localStorage.getItem("user")) || [];
+        const viewrecord = () => {
+            let detail = "";
+            student.map((val , index) => {
+                detail += `
+
+                    <tr>
+                        <td>${val.id}</td>
+                        <td>${val.name}</td>
+                        <td>${val.pass}</td>    
+                        <td>        <button  onclick="deletedata(id)">delete</button>  ||      <button>edit</button></td>    
+                    </tr>
+                
+                `
+
+                document.getElementById("tbody").innerHTML = detail;
+            })
+
+        }
+        viewrecord();
+
+        const savedata = () => {
+            let username = document.getElementById("name").value
+            let lock = document.getElementById("pass").value
+
+            let data = {
+                id: Math.floor(Math.random() * 1000),
+                name: username,
+                pass: lock
+            }
+            student.push(data)
+            localStorage.setItem("user", JSON.stringify(student));
+            document.getElementById("name").value = " "
+            document.getElementById("pass").value = " "
+            viewrecord();
+        }
+        
+
+        let  deletedata=(id)=>{
+          let usersname=document.getElementById("name")
+          let usersphone=document.getElementById("phone")
+          let view= JSON.parse(localStorage.getItem("user"))
+        
+           
+        }
+
+    </script>
+
+
+</body>
+
+</html>

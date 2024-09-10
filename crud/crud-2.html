@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <input type="hidden" id="Editdata">
+    <input type="text" placeholder="firstname" id="fname">
+    <input type="text" placeholder="lastname" id="lname">
+    <input type="number" placeholder="password" id="pass">
+    <button type="button" id="add" onclick="viewuers()">submit</button>
+    <button type="button" id="Edit" onclick="updetuers()">Edit</button>
+
+    <table border="1">
+        <thead>
+            <th>id</th>
+            <th> firstname</th>
+            <th>lastname</th>
+            <th>password</th>
+            <th>delete</th>
+
+
+        </thead>
+        <tbody id="tbody">
+
+        </tbody>
+
+    </table>
+
+
+    <script>
+        let users = []
+
+        let viewuers = () => {
+            
+            document.getElementById('add').style. display="block"
+            document.getElementById('Edit').style. display="none+"
+            let fristname = document.getElementById("fname").value
+            let lastname = document.getElementById("lname").value
+            let password = document.getElementById("pass").value
+            let obj = {
+                id: Math.floor(Math.random() * 10000),
+                fname: fristname,
+                lname: lastname,
+                pass: password,
+            }
+            users.push(obj)
+            document.getElementById("fname").value = ""
+            document.getElementById("lname").value = ""
+            document.getElementById("pass").value = ""
+
+            loadData()
+        }
+        // viewuers()
+
+        function loadData() {
+            let tbl = ''
+            users.map((val, index) => {
+                tbl += `
+    <tr>
+                <td>${val.id}</td>
+                <td>${val.fname}</td>
+                <td>${val.lname}</td>
+                <td>${val.pass}</td>
+                <td> <button onclick="deletuers(${val.id})" >delete </button>
+              <button onclick="Editusers(${val.id})" >Edit </button></td>
+            </tr>
+    `
+            })
+            document.getElementById("tbody").innerHTML = tbl
+        }
+        loadData()
+        let deletuers = (id) => {
+            let deletdata = users.filter(item => item.id !== id)
+            users = deletdata;
+            viewuers()
+        }
+        let Editusers = (id) => {
+
+            document.getElementById("add").style.display="none"
+            document.getElementById("Edit").style.display="block"
+            let Editdata = users.find(val => val.id == id)
+            document.getElementById("Editdata").value = Editdata.id
+            document.getElementById("fname").value = Editdata.fname
+            document.getElementById("lname").value = Editdata.lname
+            document.getElementById("pass").value = Editdata.pass
+        }
+        let updetuers = () => {
+            let uid = document.getElementById("Editdata").value
+            let uersfname = document.getElementById("fname").value
+            let uerslname = document.getElementById("lname").value
+            let uerspass = document.getElementById("pass").value
+            let up = users.map((val) => {
+                if (val.id == uid) {
+                    val.fname = fname
+                    val.lname = lname
+                    val.pass = pass
+                }
+                return val
+            })
+            users = up
+            alert("hiii")
+            document.getElementById("Editdata").value = ""
+            document.getElementById("fname").value = ""
+            document.getElementById("lname").value = ""
+            document.getElementById("pass").value = ""
+            loadData()
+        }
+
+
+
+
+    </script>
+</body>
+
+</html>
